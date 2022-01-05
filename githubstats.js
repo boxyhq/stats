@@ -11,25 +11,25 @@ function recordGithubStats() {
     Watchers: [today],
     Forks: [today],
   };
-  
+
   var idx = 0;
   repos.forEach(function (repo) {
     var stats = getGithubStats(repo);
-    for(var k in rows) {
+    for (var k in rows) {
       rows[k].push(stats[k]);
     }
-    
+
     idx++;
   });
 
-  for(var k in rows) {
+  for (var k in rows) {
     var sheet = SpreadsheetApp.getActive().getSheetByName(k);
     sheet.appendRow(rows[k]);
   }
 }
 
 function getGithubStats(repo) {
-  var response = UrlFetchApp.fetch("https://api.github.com/repos/" + repo);
+  var response = UrlFetchApp.fetch('https://api.github.com/repos/' + repo);
   var stats = JSON.parse(response.getContentText());
   return {
     Stars: stats['stargazers_count'],
